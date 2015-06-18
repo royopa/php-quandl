@@ -1,20 +1,18 @@
-PHP Quandl
-==========
+Quandl Elephant API
+===================
 
-This library provides easy access to the 
-[Quandl API](https://www.quandl.com/help/api) 
-using PHP.
+This project is a fork of [php-quandl](https://github.com/DannyBen/php-quandl), a great API to provide easy access to the 
+[Quandl API](https://www.quandl.com/help/api) using PHP.
 
+The name of this project was changed to answer the [PHP Licensing](http://php.net/license/).
 
-Geting Started
---------------
-
-Include the `Quandl.php` class in your code, and run one of the examples. 
+Install
+-------
 
 To install with composer:
 
 ```sh
-$ composer require dannyben/php-quandl
+composer require royopa/quandl-elephant-api
 ```
 
 Examples
@@ -142,5 +140,7 @@ Tests
 -----
 
 From the project directory, tests can be ran using:
-    
+
+```sh    
     ./vendor/bin/phpunit
+```
