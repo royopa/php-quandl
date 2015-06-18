@@ -142,5 +142,5 @@ Tests
 From the project directory, tests can be ran using:
 
 ```sh    
-    ./vendor/bin/phpunit
+./vendor/bin/phpunit
 ```
