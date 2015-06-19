@@ -6,9 +6,9 @@ production and can safely delete it if you are not using PHPUnit.
 
 ## Run Tests
 
-From the project directory, tests can be ran using:
+From the root project directory, tests can be ran using:
 
 ```sh
 ./vendor/bin/phpunit
-```sh
+```
 	
