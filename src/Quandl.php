@@ -47,7 +47,7 @@ class Quandl {
     }
 
     // getList returns the list of symbols for a given source.
-    public function getList($source, $page = 1, $per_page = 300)
+    public function getList($query, $page = 1, $per_page = 300)
     {
         $params = $this->constructParams($query, $page, $per_page);
         $params["query"] = "*";
