@@ -40,13 +40,8 @@ class Quandl {
     // is set to CSV, the result will fall back to object mode.
     public function getSearch($query, $page = 1, $per_page = 300)
     {
-        $params = $this->constructParams($query, $page = 1, $per_page = 300);
-        
-        $url = $this->getUrl(
-            "search", 
-            $this->getFormat(true), 
-            $this->arrangeParams($params)
-        );
+        $params = $this->constructParams($query, $page, $per_page);
+        $url    = $this->generateUrl("search", true, $params);
 
         return $this->getData($url);
     }
@@ -54,16 +49,24 @@ class Quandl {
     // getList returns the list of symbols for a given source.
     public function getList($source, $page = 1, $per_page = 300)
     {
-        $params = $this->constructParams($source, $page = 1, $per_page = 300);
+        $params = $this->constructParams($query, $page, $per_page);
         $params["query"] = "*";
         
+        $url = $this->generateUrl("list", false, $params);
+
+        return $this->getData($url);
+    }
+
+    //generate the url basead in parameters
+    public function generateUrl($type = "", $format = false, $params)
+    {
         $url = $this->getUrl(
-            "list", 
-            $this->getFormat(), 
+            $type,
+            $this->getFormat($format),
             $this->arrangeParams($params)
         );
 
-        return $this->getData($url);
+        return $url;
     }
 
     // getFormat returns one of the three formats supported by Quandl.
@@ -91,8 +94,9 @@ class Quandl {
     private function getUrl($kind)
     {
         $template = self::$url_templates[$kind];
-        $args = array_slice(func_get_args(), 1);
+        $args     = array_slice(func_get_args(), 1);
         $this->last_url = trim(vsprintf($template, $args), "?&");
+        
         return $this->last_url;
     }
 
