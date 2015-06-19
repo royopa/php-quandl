@@ -1,10 +1,14 @@
-PHP Quandl Unit Tests
-=====================
+Tests
+=====
 
 This folder contains PHPUnit unit tests. You do not need it for 
 production and can safely delete it if you are not using PHPUnit.
 
 ## Run Tests
 
-	$ phpunit --stop-on-failure .
+From the project directory, tests can be ran using:
+
+```sh
+./vendor/bin/phpunit
+```sh
 	
