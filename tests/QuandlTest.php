@@ -4,14 +4,25 @@ use Royopa\Quandl\Quandl;
 
 class QuandlTest extends PHPUnit_Framework_TestCase
 {
-    private $api_key  = "DEBUG_KEY";
-    
-    private $symbol     = "WIKI/AAPL";
-    private $symbols    = ["WIKI/CSCO", "WIKI/AAPL"];
-    private $dates      = ["trim_start" => "2014-01-01", "trim_end" => "2014-02-02"];
+    //private $api_key  = "DEBUG_KEY";
+    private $api_key    = 'm2atjgMb4x11YczvyR_Q';
+
+    private $symbol     = 'WIKI/AAPL';
+
+    private $symbols    = [
+        'WIKI/CSCO',
+        'WIKI/AAPL'
+    ];
+
+    private $dates      = [
+        'trim_start' => '2014-01-01',
+        'trim_end'   => '2014-02-02'
+    ];
+
     private $cache_file = false;
 
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->cache_file and unlink($this->cache_file);
     }
 
@@ -45,24 +56,15 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         $this->_testInvalidUrl(true);
     }
 
-    public function testGetList()
+    public function testCache()
     {
-        $this->_testGetList();
-        $this->_testGetList(true);
-    }
-
-    public function testGetSearch() {
-        $this->_testGetSearch();
-        $this->_testGetSearch(true);
-    }
-
-    public function testCache() {
         $this->_testCache();
         $this->cache_file and unlink($this->cache_file);
         $this->_testCache(true);
     }
 
-    public function cacheHandler($action, $url, $data=null) {
+    public function cacheHandler($action, $url, $data=null)
+    {
         $cache_key  = md5("quandl:$url");
         $cache_file = __DIR__ . "/$cache_key";
 
@@ -76,10 +78,11 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         return false;
     }
 
-    private function _testInvalidUrl($force_curl = false) {
+    private function _testInvalidUrl($force_curl = false)
+    {
         $quandl = new Quandl($this->api_key, "json");
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
-        $r = $quandl->getSymbol("INVALID/SYMBOL", $this->dates);
+        $result = $quandl->getSymbol("INVALID/SYMBOL", $this->dates);
         $this->assertEquals($quandl->error, "Invalid URL", 
             "TEST invalidUrl response");
     }
@@ -88,8 +91,8 @@ class QuandlTest extends PHPUnit_Framework_TestCase
     {
         $quandl = new Quandl($this->api_key);
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
-        $r = $quandl->getList("WIKI", 1, 10);
-        $this->assertEquals(10, count($r->docs),
+        $result = $quandl->getList("WIKI", 1, 223);
+        $this->assertEquals(223, count($result->docs),
             "TEST getList count");
     }
 
@@ -97,9 +100,9 @@ class QuandlTest extends PHPUnit_Framework_TestCase
     {
         $quandl = new Quandl($this->api_key);
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
-        $r = $quandl->getSearch("crud oil", 1, 10);
+        $result = $quandl->getSearch("crud oil", 1, 220);
         
-        $this->assertEquals(10, count($r->docs), "TEST getSearch count");
+        $this->assertEquals(220, count($result->docs), "TEST getSearch count");
     }
 
     private function _testCache($force_curl = false)
@@ -107,39 +110,43 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         $quandl = new Quandl($this->api_key);
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
         $quandl->cache_handler = array($this, "cacheHandler");
-        $r = $quandl->getSymbol($this->symbol, $this->dates);
-        $count = count($r->data);
+        $result = $quandl->getSymbol($this->symbol, $this->dates);
+        $count = count($result->data);
         
         $this->assertFalse($quandl->was_cached, "TEST was_cache should be false");
 
-        $r = $quandl->getSymbol($this->symbol, $this->dates);
+        $result = $quandl->getSymbol($this->symbol, $this->dates);
         
         $this->assertEquals(
         	$count,
-        	count($r->data), 
+        	count($result->data), 
             "TEST count before and after cache should match"
 		);
 
         $this->assertTrue($quandl->was_cached, "TEST was_cache should be true");
     }
 
-    private function _testGetSymbol($format, $length, $force_curl = false) {
+    private function _testGetSymbol($format, $length, $force_curl = false)
+    {
         $quandl = new Quandl($this->api_key, $format);
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
-        $r = $quandl->getSymbol($this->symbol, $this->dates);
+        $result = $quandl->getSymbol($this->symbol, $this->dates);
         $quandl_format = $format;
-        if(is_object($r)) {
-            $r = serialize($r);
+        
+        if(is_object($result)) {
+            $result = serialize($result);
             $quandl_format = "json";
         }
 
         $this->assertGreaterThan(
             $length,
-            strlen($r), 
+            strlen($result), 
             "TEST $format length");
+
+        $url_expected = "https://www.quandl.com/api/v1/datasets/{$this->symbol}.{$quandl_format}?trim_start={$this->dates['trim_start']}&trim_end={$this->dates['trim_end']}&auth_token={$this->api_key}";
         
         $this->assertEquals(
-            "https://www.quandl.com/api/v1/datasets/{$this->symbol}.{$quandl_format}?trim_start={$this->dates['trim_start']}&trim_end={$this->dates['trim_end']}&auth_token={$this->api_key}",
+            $url_expected,
             $quandl->last_url,
             "TEST $format url");
     }

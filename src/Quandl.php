@@ -2,16 +2,16 @@
 
 namespace Royopa\Quandl;
 
-class Quandl {
-
-    public $api_key;      = null;
-    public $format        = 'object';
+class Quandl
+{
+    public $api_key       = null;
+    public $format        = null;
     public $cache_handler = null;
     public $was_cached    = false;
     public $force_curl    = false;
     public $no_ssl_verify = false; // disable ssl verification for curl
-    public $last_url;
-    public $error;
+    public $last_url      = null;
+    public $error         = null;
 
     private static $url_templates = [
         "symbol"  => 'https://www.quandl.com/api/v1/datasets/%s.%s?%s',
@@ -30,7 +30,8 @@ class Quandl {
     {
         $url = $this->getUrl(
             'symbol',
-            $symbol, $this->getFormat(),
+            $symbol,
+            $this->getFormat(),
             $this->arrangeParams($params)
         );
 
