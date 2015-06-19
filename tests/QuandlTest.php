@@ -1,6 +1,6 @@
 <?php
 
-use DannyBen\Quandl\Quandl;
+use Royopa\Quandl\Quandl;
 
 class QuandlTest extends PHPUnit_Framework_TestCase
 {
