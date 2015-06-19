@@ -1,6 +1,6 @@
 <?php
 
-namespace DannyBen\Quandl;
+namespace Royopa\Quandl;
 
 class Quandl {
 
