@@ -6,6 +6,8 @@ This project is a fork of [php-quandl](https://github.com/DannyBen/php-quandl), 
 
 The name of this project was changed to answer the [PHP Licensing](http://php.net/license/).
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/?branch=master)
+
 Install
 -------
 
