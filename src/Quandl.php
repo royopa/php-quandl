@@ -4,8 +4,8 @@ namespace Royopa\Quandl;
 
 class Quandl {
 
-    public $api_key;
-    public $format;
+    public $api_key;      = null;
+    public $format        = 'object';
     public $cache_handler = null;
     public $was_cached    = false;
     public $force_curl    = false;
@@ -19,18 +19,20 @@ class Quandl {
         "list"    => 'https://www.quandl.com/api/v2/datasets.%s?%s',
     ];
     
-    public function __construct($api_key = null, $format = "object")
+    public function __construct($api_key = null, $format = 'object')
     {
         $this->api_key = $api_key;
-        $this->format = $format;
+        $this->format  = $format;
     }
 
     // getSymbol returns data for a given symbol.
     public function getSymbol($symbol, $params = null)
     {
-        $url = $this->getUrl("symbol", 
-            $symbol, $this->getFormat(), 
-            $this->arrangeParams($params));
+        $url = $this->getUrl(
+            'symbol',
+            $symbol, $this->getFormat(),
+            $this->arrangeParams($params)
+        );
 
         return $this->getData($url);
     }
@@ -41,7 +43,7 @@ class Quandl {
     public function getSearch($query, $page = 1, $per_page = 300)
     {
         $params = $this->constructParams($query, $page, $per_page);
-        $url    = $this->generateUrl("search", true, $params);
+        $url    = $this->generateUrl('search', true, $params);
 
         return $this->getData($url);
     }
@@ -49,16 +51,15 @@ class Quandl {
     // getList returns the list of symbols for a given source.
     public function getList($query, $page = 1, $per_page = 300)
     {
-        $params = $this->constructParams($query, $page, $per_page);
+        $params          = $this->constructParams($query, $page, $per_page);
         $params["query"] = "*";
-        
-        $url = $this->generateUrl("list", false, $params);
+        $url             = $this->generateUrl('list', false, $params);
 
         return $this->getData($url);
     }
 
     //generate the url basead in parameters
-    public function generateUrl($type = "", $format = false, $params)
+    public function generateUrl($type = '', $format = false, $params)
     {
         $url = $this->getUrl(
             $type,
@@ -71,14 +72,14 @@ class Quandl {
 
     // getFormat returns one of the three formats supported by Quandl.
     // It is here for two reasons: 
-    //  1) we also allow "object" format. this will be sent to Quandl
+    //  1) we also allow 'object' format. this will be sent to Quandl
     //     as "json" but the getData method will return a json_decoded
     //     output.
     //  2) some Quandl nodes do not support CSV (namely search).
     private function getFormat($omit_csv = false)
     {
-        if (($this->format == "csv" && $omit_csv) || $this->format == "object") {
-            return "json";
+        if (($this->format == 'csv' && $omit_csv) || $this->format == 'object') {
+            return 'json';
         }
 
         return $this->format;
@@ -87,36 +88,39 @@ class Quandl {
     // getUrl receives a kind that points to a URL template and 
     // a variable number of parameters, which will be replaced
     // in the template.
-
     /**
      * @param string $kind
      */
     private function getUrl($kind)
     {
-        $template = self::$url_templates[$kind];
-        $args     = array_slice(func_get_args(), 1);
-        $this->last_url = trim(vsprintf($template, $args), "?&");
+        $template       = self::$url_templates[$kind];
+        $args           = array_slice(func_get_args(), 1);
+        $this->last_url = trim(vsprintf($template, $args), '?&');
         
         return $this->last_url;
     }
 
     // getData executes the download operation and returns the result
-    // as is, or json-decoded if "object" type was requested.
-
+    // as is, or json-decoded if 'object' type was requested.
     /**
      * @param string $url
      */
     private function getData($url)
     {
         $result = $this->executeDownload($url);
-        return $this->format == "object" ? json_decode($result) : $result;
+        
+        if ($this->format == 'object') {
+            return json_decode($result);
+        }
+
+        return $result;
     }
 
     // executeDownload gets a URL, and returns the downloaded document
     // either from cache (if cache_handler is set) or from Quandl.
     private function executeDownload($url)
     {
-        if ($this->cache_handler == null) {
+        if (! $this->cache_handler) {
             $data = $this->download($url);
             return $data;
         }
@@ -137,7 +141,7 @@ class Quandl {
     private function attemptGetFromCache($url)
     {
         $this->was_cached = false;
-        $data = call_user_func($this->cache_handler, "get", $url);
+        $data = call_user_func($this->cache_handler, 'get', $url);
         
         if ($data) {
             $this->was_cached = true;
@@ -145,7 +149,8 @@ class Quandl {
         }
 
         $data = $this->download($url);
-        $data and call_user_func($this->cache_handler, "set", $url, $data);
+        
+        $data and call_user_func($this->cache_handler, 'set', $url, $data);
 
         return $data;
     }
@@ -158,9 +163,12 @@ class Quandl {
     private function arrangeParams($params)
     {
         $this->api_key and $params['auth_token'] = $this->api_key;
-        if (!$params) return $params;
         
-        foreach (["trim_start", "trim_end"] as $v) {
+        if (!$params) {
+            return $params;   
+        }
+        
+        foreach (['trim_start', 'trim_end'] as $v) {
             if (isset($params[$v]))
                 $params[$v] = self::convertToQuandlDate($params[$v]);
         }
@@ -172,7 +180,7 @@ class Quandl {
     // PHP (e.g. "today-30 days") to the format needed by Quandl
     private static function convertToQuandlDate($time_str)
     {
-        return date("Y-m-d", strtotime($time_str));
+        return date('Y-m-d', strtotime($time_str));
     }
 
     /*
@@ -186,8 +194,8 @@ class Quandl {
         $headers_url = get_headers($url);
         $http_code   = $headers_url[0];
 
-        if (strpos($http_code, "404") !== false) {
-            $this->error = "Invalid URL";
+        if (strpos($http_code, '404') !== false) {
+            $this->error = 'Invalid URL';
             return false;
         }
     
@@ -201,7 +209,7 @@ class Quandl {
         }
 
         if (!function_exists('curl_version')) {
-            $this->error = "Enable allow_url_fopen or curl";
+            $this->error = 'Enable allow_url_fopen or curl';
             return false;
         }
 

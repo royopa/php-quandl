@@ -15,32 +15,38 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         $this->cache_file and unlink($this->cache_file);
     }
 
-    public function testCsv() {
+    public function testCsv()
+    {
         $this->_testGetSymbol("csv", 2800);
         $this->_testGetSymbol("csv", 2800, true);
     }
 
-    public function testXml() {
+    public function testXml()
+    {
         $this->_testGetSymbol("xml", 14000);
         $this->_testGetSymbol("xml", 14000, true);
     }
 
-    public function testJson() {
+    public function testJson()
+    {
         $this->_testGetSymbol("json", 4200);
         $this->_testGetSymbol("json", 4200, true);
     }
 
-    public function testObject() {
+    public function testObject()
+    {
         $this->_testGetSymbol("object", 7400);
         $this->_testGetSymbol("object", 7400, true);
     }
 
-    public function testInvalidUrl() {
+    public function testInvalidUrl()
+    {
         $this->_testInvalidUrl();
         $this->_testInvalidUrl(true);
     }
 
-    public function testGetList() {
+    public function testGetList()
+    {
         $this->_testGetList();
         $this->_testGetList(true);
     }
@@ -57,7 +63,7 @@ class QuandlTest extends PHPUnit_Framework_TestCase
     }
 
     public function cacheHandler($action, $url, $data=null) {
-        $cache_key = md5("quandl:$url");
+        $cache_key  = md5("quandl:$url");
         $cache_file = __DIR__ . "/$cache_key";
 
         if($action == "get" and file_exists($cache_file)) 
