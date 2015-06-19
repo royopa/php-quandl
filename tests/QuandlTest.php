@@ -83,8 +83,12 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         $quandl = new Quandl($this->api_key, "json");
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
         $result = $quandl->getSymbol("INVALID/SYMBOL", $this->dates);
-        $this->assertEquals($quandl->error, "Invalid URL", 
-            "TEST invalidUrl response");
+        
+        $this->assertEquals(
+            $quandl->error,
+            "Invalid URL", 
+            "TEST invalidUrl response"
+        );
     }
 
     private function _testGetList($force_curl = false)
@@ -92,8 +96,12 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         $quandl = new Quandl($this->api_key);
         $quandl->force_curl = $quandl->no_ssl_verify = $force_curl;
         $result = $quandl->getList("WIKI", 1, 223);
-        $this->assertEquals(223, count($result->docs),
-            "TEST getList count");
+        
+        $this->assertEquals(
+            223,
+            count($result->docs),
+            "TEST getList count"
+        );
     }
 
     private function _testGetSearch($force_curl = false)
