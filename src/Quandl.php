@@ -19,13 +19,15 @@ class Quandl {
         "list"    => 'https://www.quandl.com/api/v2/datasets.%s?%s',
     ];
     
-    public function __construct($api_key = null, $format = "object") {
+    public function __construct($api_key = null, $format = "object")
+    {
         $this->api_key = $api_key;
         $this->format = $format;
     }
 
     // getSymbol returns data for a given symbol.
-    public function getSymbol($symbol, $params = null) {
+    public function getSymbol($symbol, $params = null)
+    {
         $url = $this->getUrl("symbol", 
             $symbol, $this->getFormat(), 
             $this->arrangeParams($params));
@@ -56,16 +58,20 @@ class Quandl {
     }
 
     // getList returns the list of symbols for a given source.
-    public function getList($source, $page = 1, $per_page = 300) {
+    public function getList($source, $page = 1, $per_page = 300)
+    {
         $params = [
             "query"       => "*",
             "source_code" => $source, 
             "per_page"    => $per_page, 
             "page"        => $page, 
         ];
-        $url = $this->getUrl("list", 
+        
+        $url = $this->getUrl(
+            "list", 
             $this->getFormat(), 
-            $this->arrangeParams($params));
+            $this->arrangeParams($params)
+        );
 
         return $this->getData($url);
     }
@@ -76,9 +82,11 @@ class Quandl {
     //     as "json" but the getData method will return a json_decoded
     //     output.
     //  2) some Quandl nodes do not support CSV (namely search).
-    private function getFormat($omit_csv = false) {
-        if (($this->format == "csv" and $omit_csv) or $this->format == "object")
+    private function getFormat($omit_csv = false)
+    {
+        if (($this->format == "csv" && $omit_csv) || $this->format == "object") {
             return "json";
+        }
 
         return $this->format;
     }
@@ -90,7 +98,8 @@ class Quandl {
     /**
      * @param string $kind
      */
-    private function getUrl($kind) {
+    private function getUrl($kind)
+    {
         $template = self::$url_templates[$kind];
         $args = array_slice(func_get_args(), 1);
         $this->last_url = trim(vsprintf($template, $args), "?&");
@@ -103,7 +112,8 @@ class Quandl {
     /**
      * @param string $url
      */
-    private function getData($url) {
+    private function getData($url)
+    {
         $result = $this->executeDownload($url);
         return $this->format == "object" ? json_decode($result) : $result;
     }
@@ -151,7 +161,8 @@ class Quandl {
     //  1) trim_start and trim_end are converted from any plain
     //     language syntax to Quandl format
     //  2) api_key is appended
-    private function arrangeParams($params) {
+    private function arrangeParams($params)
+    {
         $this->api_key and $params['auth_token'] = $this->api_key;
         if (!$params) return $params;
         
@@ -170,28 +181,29 @@ class Quandl {
         return date("Y-m-d", strtotime($time_str));
     }
 
-    // download fetches $url with file_get_contents or curl fallback
-    // You can force curl download by setting $force_curl to true.
-    // You can disable SSL verification for curl by setting 
-    // $no_ssl_verify to true (solves "SSL certificate problem")
+    /*
+     * download fetches url with file_get_contents or curl fallback
+     * You can force curl download by setting force_curl to true.
+     * You can disable SSL verification for curl by setting 
+     * no_ssl_verify to true (solves "SSL certificate problem")
+     */
     private function download($url)
     {
         $headers_url = get_headers($url);
-        $http_code = $headers_url[0];
+        $http_code   = $headers_url[0];
 
         if (strpos($http_code, "404") !== false) {
             $this->error = "Invalid URL";
             return false;
         }
     
-        if (ini_get('allow_url_fopen') and !$this->force_curl) {
+        if (ini_get('allow_url_fopen') && !$this->force_curl) {
             try {
                 $data = file_get_contents($url);
-            } catch (Exception $e) {
+                return $data;
+            } catch (\Exception $e) {
                 $this->error = $e->getMessage();
             }
-            
-            return $data;
         }
 
         if (!function_exists('curl_version')) {
@@ -208,7 +220,7 @@ class Quandl {
             
         $data  = curl_exec($curl);
         $error = curl_error($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
         curl_close($curl);
 
         if ($error) {
