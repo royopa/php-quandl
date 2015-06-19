@@ -26,8 +26,8 @@ data for AAPL:
 
 ```php
 $api_key = "YOUR_KEY_HERE";
-$quandl = new Quandl($api_key);
-$data = $quandl->getSymbol("GOOG/NASDAQ_AAPL");
+$quandl  = new Quandl($api_key);
+$data    = $quandl->getSymbol("GOOG/NASDAQ_AAPL");
 ```
 
 You may pass any parameter that is mentioned in the Quandl
@@ -59,8 +59,8 @@ supported symbols in a data source:
 
 ```php
 $quandl = new Quandl($api_key);
-$data = $quandl->getSearch("crude oil");
-$data = $quandl->getList("WIKI", 1, 10);
+$data   = $quandl->getSearch("crude oil");
+$data   = $quandl->getList("WIKI", 1, 10);
 ```
 
 More examples can be found in the [examples.php](https://github.com/DannyBen/php-quandl/blob/master/examples.php) file 

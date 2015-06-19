@@ -1,9 +1,19 @@
 {
     "name": "royopa/quandl-elephant-api",
+    "description": "A API to provide easy access to the Quandl API using PHP",
     "license": "MIT",
     "require": {
         "php": "~5.4"
     },
+    "authors": [
+        {
+            "name": "Danny Ben Shitrit"
+        },
+        {
+            "name": "Rodrigo Prado de Jesus (royopa)",
+            "email": "royopa@gmail.com"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
     },

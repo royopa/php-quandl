@@ -55,7 +55,7 @@ class Quandl {
     public function getList($source, $page = 1, $per_page = 300)
     {
         $params = $this->constructParams($source, $page = 1, $per_page = 300);
-        $params["query"] => "*";
+        $params["query"] = "*";
         
         $url = $this->getUrl(
             "list", 
