@@ -40,11 +40,7 @@ class Quandl {
     // is set to CSV, the result will fall back to object mode.
     public function getSearch($query, $page = 1, $per_page = 300)
     {
-        $params = [
-            "per_page" => $per_page, 
-            "page"     => $page, 
-            "query"    => $query,
-        ];
+        $params = $this->constructParams($query, $page = 1, $per_page = 300);
         
         $url = $this->getUrl(
             "search", 
@@ -52,20 +48,14 @@ class Quandl {
             $this->arrangeParams($params)
         );
 
-		echo $url;
-
         return $this->getData($url);
     }
 
     // getList returns the list of symbols for a given source.
     public function getList($source, $page = 1, $per_page = 300)
     {
-        $params = [
-            "query"       => "*",
-            "source_code" => $source, 
-            "per_page"    => $per_page, 
-            "page"        => $page, 
-        ];
+        $params = $this->constructParams($source, $page = 1, $per_page = 300);
+        $params["query"] => "*";
         
         $url = $this->getUrl(
             "list", 
@@ -229,5 +219,17 @@ class Quandl {
         }
         
         return $data;
+    }
+
+    //construct a array with parameters used to query
+    private function constructParams($query, $page = 1, $per_page = 300)
+    {
+        $params = [
+            "per_page" => $per_page, 
+            "page"     => $page, 
+            "query"    => $query,
+        ];
+
+        return $params;
     }
 }
