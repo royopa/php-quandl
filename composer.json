@@ -1,5 +1,5 @@
 {
-    "name": "dannyben/php-quandl",
+    "name": "royopa/quandl-elephant-api",
     "license": "MIT",
     "require": {
         "php": "~5.4"
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DannyBen\\Quandl\\": "src"
+            "Royopa\\Quandl\\": "src"
         }
     }
 }
