@@ -26,6 +26,8 @@ This is a basic call. It will return a PHP object with price
 data for AAPL:
 
 ```php
+use Royopa\Quandl;
+
 $api_key = "YOUR_KEY_HERE";
 $quandl  = new Quandl($api_key);
 $data    = $quandl->getSymbol("GOOG/NASDAQ_AAPL");
@@ -35,6 +37,8 @@ You may pass any parameter that is mentioned in the Quandl
 documentation:
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key);
 $data = $quandl->getSymbol($symbol, [
 	"sort_order"      => "desc",
@@ -48,6 +52,8 @@ The date range options get a special treatment. You may use
 any date string that PHP's `strtotime()` understands.
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key, "csv");
 $data = $quandl->getSymbol($symbol, [
 	"trim_start" => "today-30 days",
@@ -59,6 +65,8 @@ You can also search the entire Quandl database and get a list of
 supported symbols in a data source:
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key);
 $data   = $quandl->getSearch("crude oil");
 $data   = $quandl->getList("WIKI", 1, 10);
