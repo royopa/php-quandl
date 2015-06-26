@@ -6,6 +6,7 @@ This project is a fork of [php-quandl](https://github.com/DannyBen/php-quandl), 
 
 The name of this project was changed to answer the [PHP Licensing](http://php.net/license/).
 
+[![Build Status](https://travis-ci.org/royopa/quandl-elephant-api.svg?branch=master)](https://travis-ci.org/royopa/quandl-elephant-api)
 [![Latest Stable Version](https://poser.pugx.org/royopa/quandl-elephant-api/v/stable)](https://packagist.org/packages/royopa/quandl-elephant-api) [![Total Downloads](https://poser.pugx.org/royopa/quandl-elephant-api/downloads)](https://packagist.org/packages/royopa/quandl-elephant-api) [![Latest Unstable Version](https://poser.pugx.org/royopa/quandl-elephant-api/v/unstable)](https://packagist.org/packages/royopa/quandl-elephant-api) [![License](https://poser.pugx.org/royopa/quandl-elephant-api/license)](https://packagist.org/packages/royopa/quandl-elephant-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/?branch=master)
 
@@ -25,6 +26,8 @@ This is a basic call. It will return a PHP object with price
 data for AAPL:
 
 ```php
+use Royopa\Quandl;
+
 $api_key = "YOUR_KEY_HERE";
 $quandl  = new Quandl($api_key);
 $data    = $quandl->getSymbol("GOOG/NASDAQ_AAPL");
@@ -34,6 +37,8 @@ You may pass any parameter that is mentioned in the Quandl
 documentation:
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key);
 $data = $quandl->getSymbol($symbol, [
 	"sort_order"      => "desc",
@@ -47,6 +52,8 @@ The date range options get a special treatment. You may use
 any date string that PHP's `strtotime()` understands.
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key, "csv");
 $data = $quandl->getSymbol($symbol, [
 	"trim_start" => "today-30 days",
@@ -58,6 +65,8 @@ You can also search the entire Quandl database and get a list of
 supported symbols in a data source:
 
 ```php
+use Royopa\Quandl;
+
 $quandl = new Quandl($api_key);
 $data   = $quandl->getSearch("crude oil");
 $data   = $quandl->getList("WIKI", 1, 10);
