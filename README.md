@@ -9,6 +9,7 @@ The name of this project was changed to answer the [PHP Licensing](http://php.ne
 [![Build Status](https://travis-ci.org/royopa/quandl-elephant-api.svg?branch=master)](https://travis-ci.org/royopa/quandl-elephant-api)
 [![Latest Stable Version](https://poser.pugx.org/royopa/quandl-elephant-api/v/stable)](https://packagist.org/packages/royopa/quandl-elephant-api) [![Total Downloads](https://poser.pugx.org/royopa/quandl-elephant-api/downloads)](https://packagist.org/packages/royopa/quandl-elephant-api) [![Latest Unstable Version](https://poser.pugx.org/royopa/quandl-elephant-api/v/unstable)](https://packagist.org/packages/royopa/quandl-elephant-api) [![License](https://poser.pugx.org/royopa/quandl-elephant-api/license)](https://packagist.org/packages/royopa/quandl-elephant-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/?branch=master)
+[![Code Climate](https://codeclimate.com/github/royopa/quandl-elephant-api/badges/gpa.svg)](https://codeclimate.com/github/royopa/quandl-elephant-api)
 
 Install
 -------
