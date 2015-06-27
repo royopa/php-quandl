@@ -3,13 +3,6 @@ checks:
         code_rating: true
         duplication: true
 
-filter:
-    excluded_paths:
-        - tests/*
-        - vendor/*
-    paths:
-        - src/*
-
 before_commands:
     - "composer install --no-dev --prefer-source"
 

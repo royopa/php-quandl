@@ -2,14 +2,17 @@
 //--------------------------------------------------------------
 // Examples: Quandl API
 //--------------------------------------------------------------
-require_once "./src/Quandl.php";
+require "./src/Quandl.php";
+require "./vendor/raveren/kint/Kint.class.php";
+
+Kint::enabled(true);
 
 $api_key = "YOUR_KEY_HERE";
 $symbol  = "GOOG/NASDAQ_AAPL";
 
 // Modify this call to check different samples
 $data = example1($api_key, $symbol);
-print_r($data);
+d($data);
 
 // Example 1: Hello Quandl
 function example1($api_key, $symbol)
@@ -31,8 +34,8 @@ function example3($api_key, $symbol)
     $quandl = new Royopa\Quandl\Quandl($api_key);
     print $quandl->last_url;
     return $quandl->getSymbol($symbol, [
-    "trim_start" => "today-30 days",
-    "trim_end"   => "today",
+        "trim_start" => "today-30 days",
+        "trim_end"   => "today",
     ]);
 }
 
@@ -41,10 +44,10 @@ function example4($api_key, $symbol)
 {
     $quandl = new Royopa\Quandl\Quandl($api_key, "csv");
     return $quandl->getSymbol($symbol, [
-    "sort_order"      => "desc", // asc|desc
-    "exclude_headers" => true,
-    "rows"            => 10,
-    "column"          => 4, // 4 = close price
+        "sort_order"      => "desc", // asc|desc
+        "exclude_headers" => true,
+        "rows"            => 10,
+        "column"          => 4, // 4 = close price
     ]);
 }
 
@@ -53,7 +56,7 @@ function example5($api_key, $symbol)
 {
     $quandl = new Royopa\Quandl\Quandl($api_key, "xml");
     return $quandl->getSymbol($symbol, [
-    "collapse" => "weekly" // none|daily|weekly|monthly|quarterly|annual
+        "collapse" => "weekly" // none|daily|weekly|monthly|quarterly|annual
     ]);
 }
 
@@ -76,7 +79,10 @@ function example8($api_key, $symbol)
 {
     $quandl = new Royopa\Quandl\Quandl($api_key, "csv");
     $result = $quandl->getSymbol("DEBUG/INVALID");
-    if ($quandl->error and !$result)
-    return $quandl->error . " - " . $quandl->last_url;
+    
+    if ($quandl->error and !$result) {
+        return $quandl->error . " - " . $quandl->last_url;        
+    }
+
     return $result;
 }
