@@ -4,7 +4,7 @@ use Royopa\Quandl\Quandl;
 
 class QuandlSymbolTest extends PHPUnit_Framework_TestCase
 {
-    private $api_key    = 'm2atjgMb4x11YczvyR_Q';
+    private $api_key    = "DEBUG_KEY";
     private $cache_file = false;
 
     public function testGetSymbol()

@@ -4,8 +4,7 @@ use Royopa\Quandl\Quandl;
 
 class QuandlTest extends PHPUnit_Framework_TestCase
 {
-    //private $api_key  = "DEBUG_KEY";
-    private $api_key    = 'm2atjgMb4x11YczvyR_Q';
+    private $api_key  = "DEBUG_KEY";
 
     private $symbol     = 'WIKI/AAPL';
 
@@ -86,7 +85,7 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals(
             $quandl->error,
-            "Invalid URL", 
+            "URL not found or invalid URL", 
             "TEST invalidUrl response"
         );
     }

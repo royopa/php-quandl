@@ -151,7 +151,9 @@ class Quandl
 
         $data = $this->download($url);
         
-        $data and call_user_func($this->cache_handler, 'set', $url, $data);
+        if ($data) {
+            call_user_func($this->cache_handler, 'set', $url, $data);
+        }
 
         return $data;
     }
@@ -163,15 +165,18 @@ class Quandl
     //  2) api_key is appended
     private function arrangeParams($params)
     {
-        $this->api_key and $params['auth_token'] = $this->api_key;
+        if ($this->api_key) {
+            $params['auth_token'] = $this->api_key;
+        }
         
         if (!$params) {
             return $params;   
         }
         
         foreach (['trim_start', 'trim_end'] as $v) {
-            if (isset($params[$v]))
+            if (isset($params[$v])) {
                 $params[$v] = self::convertToQuandlDate($params[$v]);
+            }
         }
         
         return http_build_query($params);
@@ -192,21 +197,12 @@ class Quandl
      */
     private function download($url)
     {
-        $headers_url = get_headers($url);
-        $http_code   = $headers_url[0];
-
-        if (strpos($http_code, '404') !== false) {
-            $this->error = 'Invalid URL';
+        if (! $this->checkUrl($url)) {
             return false;
         }
-    
+        
         if (ini_get('allow_url_fopen') && !$this->force_curl) {
-            try {
-                $data = file_get_contents($url);
-                return $data;
-            } catch (\Exception $e) {
-                $this->error = $e->getMessage();
-            }
+            return $this->getDataWithFileGetContents($url);
         }
 
         if (!function_exists('curl_version')) {
@@ -214,24 +210,58 @@ class Quandl
             return false;
         }
 
+        return $this->getDataWithCurl($url);
+    }
+
+    //check url
+    private function checkUrl($url)
+    {
+        $headers_url = get_headers($url);
+        $http_code   = $headers_url[0];
+
+        if (strpos($http_code, '404') !== false) {
+            $this->error = 'URL not found or invalid URL';
+            return false;
+        }
+
+        return true;
+    }
+
+    //download data with file_get_contents PHP function
+    private function getDataWithFileGetContents($url)
+    {
+        try {
+            return file_get_contents($url);
+        } catch (\Exception $e) {
+            $this->error = $e->getMessage();
+        }
+    }
+
+    //download data with file_get_contents PHP function
+    private function getDataWithCurl($url)
+    {
         $curl = curl_init();
             
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
-        $this->no_ssl_verify and curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-            
+        // disable ssl verification for curl
+        if ($this->no_ssl_verify) {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        }
+           
         $data  = curl_exec($curl);
         $error = curl_error($curl);
 
         curl_close($curl);
 
-        if ($error) {
-            $data = false;
-            $this->error = $error;
+        if (! $error) {
+            return $data;
         }
         
-        return $data;
+        $this->error = $error;
+        
+        return false;
     }
 
     //construct a array with parameters used to query
