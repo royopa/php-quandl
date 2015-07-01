@@ -1,22 +1,20 @@
 language: php
-
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-
+- 5.4
+- 5.5
+- 5.6
 before_script:
-  - composer self-update
-  - composer install --no-interaction
-
+- composer self-update
+- composer install --no-interaction
 script:
-  - ./vendor/bin/phpunit --coverage-text
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-
+- ./vendor/bin/phpunit --coverage-text
+- ./vendor/bin/phpunit --coverage-clover=coverage.clover
+- wget https://scrutinizer-ci.com/ocular.phar
+- php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 notifications:
-  email: "royopa@gmail.com"
-
+  email: royopa@gmail.com
 matrix:
   fast_finish: true
+env:
+  global:
+    secure: zjK0qCjuVS1GnraXimcK1977h3bST8kJDe9L0Zb+6z8TSGJcIxCkQwQMxTBUt0GksY9/OHJERGQL3fBSWhRLDUmqJaA/+hrDBCfxrRoXghSvwqiKNKrudK1y1zPZ0wLXK9Omn7GU/RXK2iRPQUDpb/xO8xAWeUB69EFQDFe4+DSqqtA05jBu1FxRm9EmZBQHSt4aXDEWd9UbIOcBHz7tY+4Nx95NU2L2VKSygqfDjkmjO2XS64LvxdLpIWEixVQFxgCe+u9mOEYiCBvBRxDi47LnCI06L3Z9hEwHYv9jM0cIQOmfZzlCPB8kX/OgULXxjaMs4orZijCxm2k3a3NILcUmbbXyHl0YHCJ0Or+UQCtr5z6MqeP62PLXzegjl6Qn8umXo2gRF0y4RlbpJWzgHy1/mZvsB9GLKPiAu8LOKPDqwMSNrt6kd9gURuJA1Mx3HlMLYgxJh212m0t5GVoBRB9tfx/rPefHjhiEM3EXmoFSauuHew3zBztY0x4zRS90HSKnfky3a896ZLNHaKpnVJEAbQrKEmjw0w3LxFds+pbt/tpHh/qtxA791suaRZrAIAkBuX9TahPeM/EHK8ps9Ys8jJSbiBGs2SDWKOH6xwjarb0MR6wPoTGgwO+Da9ZiOzGKui/jMcToLx5sCCccp1+BaQYNDw7+ykXn90raErk=
