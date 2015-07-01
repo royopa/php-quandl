@@ -2,9 +2,14 @@
 //--------------------------------------------------------------
 // Example: Quandl API with Cache
 //--------------------------------------------------------------
-require_once "./src/Quandl.php";
+require "./vendor/autoload.php";
 
-$api_key = "YOUR_KEY_HERE";
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+Kint::enabled(true);
+
+$api_key = getenv('QUANDL_API_KEY');
 
 $quandl = new Royopa\Quandl\Quandl($api_key, "csv");
 $quandl->cache_handler = 'cacheHandler';

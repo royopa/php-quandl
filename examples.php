@@ -2,12 +2,14 @@
 //--------------------------------------------------------------
 // Examples: Quandl API
 //--------------------------------------------------------------
-require "./src/Quandl.php";
-require "./vendor/raveren/kint/Kint.class.php";
+require "./vendor/autoload.php";
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
 
 Kint::enabled(true);
 
-$api_key = "YOUR_KEY_HERE";
+$api_key = getenv('QUANDL_API_KEY');
 $symbol  = "GOOG/NASDAQ_AAPL";
 
 // Modify this call to check different samples
