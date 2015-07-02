@@ -4,8 +4,10 @@
 //--------------------------------------------------------------
 require "./vendor/autoload.php";
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
-$dotenv->load();
+if (file_exists(__DIR__.'/.env')) {
+    $dotenv = new Dotenv\Dotenv(__DIR__);
+    $dotenv->load();
+}
 
 Kint::enabled(true);
 

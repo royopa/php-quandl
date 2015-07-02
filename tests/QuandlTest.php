@@ -22,6 +22,10 @@ class QuandlTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        if (! file_exists(__DIR__.'/../.env')) {
+            return;
+        }
+
         $dotenv = new \Dotenv\Dotenv(__DIR__.'/../');
         $dotenv->load();
         $this->api_key = getenv('QUANDL_API_KEY');
