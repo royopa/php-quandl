@@ -1,8 +1,10 @@
 <?php
 
+namespace Royopa\Quandl\Tests;
+
 use Royopa\Quandl\Quandl;
 
-class QuandlTest extends PHPUnit_Framework_TestCase
+class QuandlTest extends \PHPUnit_Framework_TestCase
 {
     private $api_key  = "DEBUG_KEY";
 
@@ -20,7 +22,7 @@ class QuandlTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+        $dotenv = new \Dotenv\Dotenv(__DIR__.'/../');
         $dotenv->load();
         $this->api_key = getenv('QUANDL_API_KEY');
     }
