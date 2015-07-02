@@ -146,6 +146,10 @@ class QuandlTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($quandl->was_cached, "TEST was_cache should be true");
     }
 
+    /**
+     * @param string $format
+     * @param integer $length
+     */
     private function _testGetSymbol($format, $length, $force_curl = false)
     {
         $quandl = new Quandl($this->api_key, $format);
