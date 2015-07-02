@@ -18,6 +18,13 @@ class QuandlTest extends PHPUnit_Framework_TestCase
         'trim_end'   => '2014-02-02'
     ];
 
+    protected function setUp()
+    {
+        $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+        $dotenv->load();
+        $this->api_key = getenv('QUANDL_API_KEY');
+    }
+
     private $cache_file = false;
 
     public function tearDown()

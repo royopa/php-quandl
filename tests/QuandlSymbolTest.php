@@ -7,6 +7,13 @@ class QuandlSymbolTest extends PHPUnit_Framework_TestCase
     private $api_key    = "DEBUG_KEY";
     private $cache_file = false;
 
+    protected function setUp()
+    {
+        $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+        $dotenv->load();
+        $this->api_key = getenv('QUANDL_API_KEY');
+    }
+
     public function testGetSymbol()
     {
         $quandl = new Quandl($this->api_key);
