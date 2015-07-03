@@ -1,94 +1,105 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="PHP Quandl : Easy access to the Quandl Data API using PHP.">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>PHP Quandl</title>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>PHP Quandl by royopa</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/DannyBen/php-quandl">View on GitHub</a>
-
-          <h1 id="project_title">PHP Quandl</h1>
-          <h2 id="project_tagline">Easy access to the Quandl Data API using PHP.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/DannyBen/php-quandl/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/DannyBen/php-quandl/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>PHP Quandl</h1>
+          <h2>Easy access to the Quandl Data API using PHP.</h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="php-quandl" class="anchor" href="#php-quandl"><span class="octicon octicon-link"></span></a>PHP Quandl</h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/royopa/quandl-elephant-api/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/royopa/quandl-elephant-api/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/royopa/quandl-elephant-api" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-<p>This library provides easy access to the 
-<a href="https://www.quandl.com/help/api">Quandl API</a> 
-using PHP.</p>
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="quandl-elephant-api" class="anchor" href="#quandl-elephant-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quandl Elephant API</h1>
+
+<p>This project is a fork of <a href="https://github.com/DannyBen/php-quandl">php-quandl</a>, a great API to provide easy access to the 
+<a href="https://www.quandl.com/help/api">Quandl API</a> using PHP.</p>
+
+<p>The name of this project was changed to answer the <a href="http://php.net/license/">PHP Licensing</a>.</p>
+
+<p><a href="https://travis-ci.org/royopa/quandl-elephant-api"><img src="https://travis-ci.org/royopa/quandl-elephant-api.svg?branch=master" alt="Build Status"></a>
+<a href="https://packagist.org/packages/royopa/quandl-elephant-api"><img src="https://poser.pugx.org/royopa/quandl-elephant-api/v/stable" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/royopa/quandl-elephant-api"><img src="https://poser.pugx.org/royopa/quandl-elephant-api/downloads" alt="Total Downloads"></a> <a href="https://packagist.org/packages/royopa/quandl-elephant-api"><img src="https://poser.pugx.org/royopa/quandl-elephant-api/v/unstable" alt="Latest Unstable Version"></a> <a href="https://packagist.org/packages/royopa/quandl-elephant-api"><img src="https://poser.pugx.org/royopa/quandl-elephant-api/license" alt="License"></a>
+<a href="https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/?branch=master"><img src="https://scrutinizer-ci.com/g/royopa/quandl-elephant-api/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
+<a href="https://codeclimate.com/github/royopa/quandl-elephant-api"><img src="https://codeclimate.com/github/royopa/quandl-elephant-api/badges/gpa.svg" alt="Code Climate"></a></p>
 
 <h2>
-<a name="geting-started" class="anchor" href="#geting-started"><span class="octicon octicon-link"></span></a>Geting Started</h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
 
-<p>Include the <code>Quandl.php</code> class in your code, and run one of 
-the examples. </p>
+<p>To install with composer:</p>
+
+<div class="highlight highlight-sh"><pre>composer require royopa/quandl-elephant-api</pre></div>
 
 <h2>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
 
 <p>This is a basic call. It will return a PHP object with price
 data for AAPL:</p>
 
-<pre><code>$api_key = "YOUR_KEY_HERE";
-$quandl = new Quandl($api_key);
-$data = $quandl-&gt;getSymbol("GOOG/NASDAQ_AAPL");
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Royopa\Quandl</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$api_key</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>YOUR_KEY_HERE<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$quandl</span>  <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Quandl</span>(<span class="pl-smi">$api_key</span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span>    <span class="pl-k">=</span> <span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span>getSymbol(<span class="pl-s"><span class="pl-pds">"</span>GOOG/NASDAQ_AAPL<span class="pl-pds">"</span></span>);</span></pre></div>
 
 <p>You may pass any parameter that is mentioned in the Quandl
 documentation:</p>
 
-<pre><code>$quandl = new Quandl($api_key);
-$data = $quandl-&gt;getSymbol($symbol, [
-    "sort_order"      =&gt; "desc",
-    "exclude_headers" =&gt; true,
-    "rows"            =&gt; 10,
-    "column"          =&gt; 4, 
-]);
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Royopa\Quandl</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$quandl</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Quandl</span>(<span class="pl-smi">$api_key</span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> <span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span>getSymbol(<span class="pl-smi">$symbol</span>, [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>sort_order<span class="pl-pds">"</span></span>      <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>desc<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>exclude_headers<span class="pl-pds">"</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>rows<span class="pl-pds">"</span></span>            <span class="pl-k">=&gt;</span> <span class="pl-c1">10</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>column<span class="pl-pds">"</span></span>          <span class="pl-k">=&gt;</span> <span class="pl-c1">4</span>, </span>
+<span class="pl-s1">]);</span></pre></div>
 
 <p>The date range options get a special treatment. You may use
 any date string that PHP's <code>strtotime()</code> understands.</p>
 
-<pre><code>$quandl = new Quandl($api_key, "csv");
-$data = $quandl-&gt;getSymbol($symbol, [
-    "trim_start" =&gt; "today-30 days",
-    "trim_end"   =&gt; "today",
-]);
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Royopa\Quandl</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$quandl</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Quandl</span>(<span class="pl-smi">$api_key</span>, <span class="pl-s"><span class="pl-pds">"</span>csv<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> <span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span>getSymbol(<span class="pl-smi">$symbol</span>, [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>trim_start<span class="pl-pds">"</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>today-30 days<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>trim_end<span class="pl-pds">"</span></span>   <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>today<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">]);</span></pre></div>
 
-<p>Multiple symbols, supported symbols and search methods are also available:</p>
+<p>You can also search the entire Quandl database and get a list of
+supported symbols in a data source:</p>
 
-<pre><code>$quandl = new Quandl($api_key);
-$data = $quandl-&gt;getSymbols(["WIKI/AAPL", "WIKI/CSCO"]);
-$data = $quandl-&gt;getSearch("crude oil");
-$data = $quandl-&gt;getList("WIKI", 1, 10);
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Royopa\Quandl</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$quandl</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Quandl</span>(<span class="pl-smi">$api_key</span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span>   <span class="pl-k">=</span> <span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span>getSearch(<span class="pl-s"><span class="pl-pds">"</span>crude oil<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span>   <span class="pl-k">=</span> <span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span>getList(<span class="pl-s"><span class="pl-pds">"</span>WIKI<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>, <span class="pl-c1">10</span>);</span></pre></div>
 
 <p>More examples can be found in the <a href="https://github.com/DannyBen/php-quandl/blob/master/examples.php">examples.php</a> file </p>
 
 <h2>
-<a name="caching" class="anchor" href="#caching"><span class="octicon octicon-link"></span></a>Caching</h2>
+<a id="caching" class="anchor" href="#caching" aria-hidden="true"><span class="octicon octicon-link"></span></a>Caching</h2>
 
 <p>You may provide the <code>quandl</code> object with a cache handler function.
 This function should be responsible for both reading from your cache and storing to it. </p>
@@ -96,31 +107,31 @@ This function should be responsible for both reading from your cache and storing
 <p>See the <a href="https://github.com/DannyBen/php-quandl/blob/master/example_cache.php">example_cache.php</a> file.</p>
 
 <h2>
-<a name="reference" class="anchor" href="#reference"><span class="octicon octicon-link"></span></a>Reference</h2>
+<a id="reference" class="anchor" href="#reference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reference</h2>
 
 <h3>
-<a name="constructor-and-public-properties" class="anchor" href="#constructor-and-public-properties"><span class="octicon octicon-link"></span></a>Constructor and public properties</h3>
+<a id="constructor-and-public-properties" class="anchor" href="#constructor-and-public-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constructor and public properties</h3>
 
 <p>The constructor accepts two optional parameters: <code>$api_key</code> and <code>$format</code>:</p>
 
-<pre><code>$quandl = new Quandl("YOUR KEY", "csv");
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$quandl</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Quandl</span>(<span class="pl-s"><span class="pl-pds">"</span>YOUR KEY<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>csv<span class="pl-pds">"</span></span>);</span></pre></div>
 
 <p>You may also set these properties later:</p>
 
-<pre><code>$quandl-&gt;api_key = "YOUR KEY";
-$quandl-&gt;format  = "json";
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span><span class="pl-smi">api_key</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>YOUR KEY<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$quandl</span><span class="pl-k">-&gt;</span><span class="pl-smi">format</span>  <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>json<span class="pl-pds">"</span></span>;</span></pre></div>
 
 <p><code>$format</code> can be one of <code>csv</code>, <code>xml</code>, <code>json</code>, and <code>object</code> (which will return a php object obtained with <code>json_decode()</code>).</p>
 
 <p>After each call to Quandl, the property <code>$last_url</code> will be set 
-for debugging and other purposes.</p>
+for debugging and other purposes. In case there was an error getting
+the data from Quandl, the result will be <code>false</code> and the property 
+<code>$error</code> will contain the error message.</p>
 
 <h3>
-<a name="getsymbol" class="anchor" href="#getsymbol"><span class="octicon octicon-link"></span></a>getSymbol</h3>
+<a id="getsymbol" class="anchor" href="#getsymbol" aria-hidden="true"><span class="octicon octicon-link"></span></a>getSymbol</h3>
 
-<p><code>mixed getSymbol( string $symbol [, array $params ] )</code></p>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c1">mixed</span> getSymbol( <span class="pl-k">string</span> <span class="pl-smi">$symbol</span> [, <span class="pl-k">array</span> <span class="pl-smi">$params</span> ] )</span></pre></div>
 
 <p>Returns an object containing data for a given symbol. The format
 of the result depends on the value of <code>$quandl-&gt;format</code>.</p>
@@ -132,50 +143,39 @@ array with any of the parameters supported by Quandl.</p>
 automatically appended.</p>
 
 <h3>
-<a name="getsymbols" class="anchor" href="#getsymbols"><span class="octicon octicon-link"></span></a>getSymbols</h3>
+<a id="getsearch" class="anchor" href="#getsearch" aria-hidden="true"><span class="octicon octicon-link"></span></a>getSearch</h3>
 
-<p><code>mixed getSymbols( array $symbols [, array $params ] )</code></p>
-
-<p>Same as <code>getSymbol()</code> only instead of a single symbol, it receives
-an array of multiple symbols. Each symbol in the array may be 
-listed using the slash notation (<code>WIKI/AAPL</code>) or dot notation 
-(<code>WIKI.AAPL</code>).</p>
-
-<p>In addition, you may append the column selector to each symbol in 
-order get only selected columns. For example, <code>WIKI/AAPL.4</code> will 
-return only the close prices (column 4) of AAPL.</p>
-
-<h3>
-<a name="getsearch" class="anchor" href="#getsearch"><span class="octicon octicon-link"></span></a>getSearch</h3>
-
-<p><code>mixed getSearch( string $query [, int $page, int $per_page] )</code></p>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c1">mixed</span> getSearch( <span class="pl-k">string</span> <span class="pl-smi">$query</span> [, <span class="pl-k">int</span> <span class="pl-smi">$page</span>, <span class="pl-k">int</span> <span class="pl-smi">$per_page</span>] )</span></pre></div>
 
 <p>Returns a search result object. Number of results per page is 
 limited to 300 by default.</p>
 
 <p>Note that currently Quandl does not support CSV response for this 
-node so if <code>$quandl-&gt;format</code> is "csv", this call will return a PHP
-object instead.</p>
+node so if <code>$quandl-&gt;format</code> is "csv", this call will return a JSON
+string instead.</p>
 
 <h3>
-<a name="getlist" class="anchor" href="#getlist"><span class="octicon octicon-link"></span></a>getList</h3>
+<a id="getlist" class="anchor" href="#getlist" aria-hidden="true"><span class="octicon octicon-link"></span></a>getList</h3>
 
-<p><code>mixed getList( string $source [, int $page, int $per_page] )</code></p>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c1">mixed</span> getList( <span class="pl-k">string</span> <span class="pl-smi">$source</span> [, <span class="pl-k">int</span> <span class="pl-smi">$page</span>, <span class="pl-k">int</span> <span class="pl-smi">$per_page</span>] )</span></pre></div>
 
-<p>Returns a list of symbols in a given source. Number of results per page
-is limited to 300 by default.</p>
-      </section>
+<p>Returns a list of symbols in a given source. Number of results per page is limited to 300 by default.</p>
+
+<h2>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>From the project directory, tests can be ran using:</p>
+
+<div class="highlight highlight-sh"><pre>./vendor/bin/phpunit</pre></div>
+        </section>
+
+        <footer>
+          PHP Quandl is maintained by <a href="https://github.com/royopa">royopa</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">PHP Quandl maintained by <a href="https://github.com/DannyBen">DannyBen</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
